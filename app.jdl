@@ -1,0 +1,53 @@
+//What is their dominant side(hands)
+enum Hands {
+	LEFT, RIGHT
+}
+
+entity Alien {
+  name String maxlength(50) required
+  species String maxlength(50) required
+  planet String maxlength(50) required
+}
+entity World {
+  name String maxlength(50) required
+  system String maxlength(50) required
+}
+
+//A System has many worlds
+entity SolarSystem {
+ name String maxlength(50) required
+ galaxy String maxlength(50) required 
+}
+
+//A alien belongs to a single species
+entity Classification {
+ name String maxlength(50) required
+ handed Hands required
+}
+
+//Each species has mastered some sort of tech
+entity Technology {
+ name String maxlength(50) required
+ aquired Boolean required
+ speci String maxlength(50) required
+}
+
+relationship OneToOne {
+ Alien{catergory(species)} to 
+ Classification{type(name)}
+}
+
+relationship OneToMany {
+  World{alienWorld(name)} to 
+  Alien{homeWorld(planet)}
+}
+
+relationship OneToMany {
+ SolarSystem{worldOrigin(name)} to 
+ World{homeSystem(system)}
+}
+
+relationship ManyToMany {
+	Technology{speciesTech(speci)} to
+    Classification{raceName(name)}
+}

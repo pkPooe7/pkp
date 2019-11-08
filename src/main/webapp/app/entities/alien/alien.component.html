@@ -1,0 +1,74 @@
+<div>
+    <h2 id="page-heading">
+        <span>Aliens</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-alien" [routerLink]="['/alien/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create a new Alien
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="aliens?.length === 0">
+        <span>No aliens found</span>
+    </div>
+    <div class="table-responsive" *ngIf="aliens?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th scope="col" ><span>ID</span></th>
+            <th scope="col" ><span>Name</span></th>
+            <th scope="col" ><span>Species</span></th>
+            <th scope="col" ><span>Planet</span></th>
+            <th scope="col" ><span>Catergory</span></th>
+            <th scope="col" ><span>Home World</span></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let alien of aliens ;trackBy: trackId">
+                <td><a [routerLink]="['/alien', alien.id, 'view' ]">{{alien.id}}</a></td>
+                <td>{{alien.name}}</td>
+                <td>{{alien.species}}</td>
+                <td>{{alien.planet}}</td>
+                <td>
+                    <div *ngIf="alien.catergory">
+                        <a [routerLink]="['/classification', alien.catergory?.id, 'view' ]" >{{alien.catergory?.species}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="alien.homeWorld">
+                        <a [routerLink]="['/world', alien.homeWorld?.id, 'view' ]" >{{alien.homeWorld?.planet}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/alien', alien.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/alien', alien.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/alien', { outlets: { popup: alien.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

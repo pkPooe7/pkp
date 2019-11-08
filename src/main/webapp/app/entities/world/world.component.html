@@ -1,0 +1,66 @@
+<div>
+    <h2 id="page-heading">
+        <span>Worlds</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-world" [routerLink]="['/world/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create a new World
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="worlds?.length === 0">
+        <span>No worlds found</span>
+    </div>
+    <div class="table-responsive" *ngIf="worlds?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th scope="col" ><span>ID</span></th>
+            <th scope="col" ><span>Name</span></th>
+            <th scope="col" ><span>System</span></th>
+            <th scope="col" ><span>Home System</span></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let world of worlds ;trackBy: trackId">
+                <td><a [routerLink]="['/world', world.id, 'view' ]">{{world.id}}</a></td>
+                <td>{{world.name}}</td>
+                <td>{{world.system}}</td>
+                <td>
+                    <div *ngIf="world.homeSystem">
+                        <a [routerLink]="['/solar-system', world.homeSystem?.id, 'view' ]" >{{world.homeSystem?.system}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/world', world.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/world', world.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/world', { outlets: { popup: world.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

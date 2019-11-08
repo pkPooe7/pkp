@@ -1,0 +1,48 @@
+{
+    "name": "World",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "required"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "system",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "required"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "alien",
+            "otherEntityRelationshipName": "homeWorld",
+            "relationshipName": "alienWorld"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "solarSystem",
+            "otherEntityRelationshipName": "worldOrigin",
+            "relationshipName": "homeSystem",
+            "otherEntityField": "system"
+        }
+    ],
+    "changelogDate": "20191108082152",
+    "entityTableName": "world",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
